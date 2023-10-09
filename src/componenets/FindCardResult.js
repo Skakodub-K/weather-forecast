@@ -67,7 +67,7 @@ function FindCardResult() {
               <li className="header__search__ul-li" key={[result.lat, result.lon]}>
                 <Link to="/" className="header__search__ul-li__a" data-city={result.name} onClick={getCity}>
                   <p className="header__search__ul__name">
-                    <strong>{result.name + ", " + result.country}</strong>
+                    <b>{result.name + ", " + result.country}</b>
                   </p>
                   <img
                     className="header__search__ul__img"
