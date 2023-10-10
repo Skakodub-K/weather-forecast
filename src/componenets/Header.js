@@ -1,10 +1,7 @@
 import FindCardResult from "./FindCardResult";
-import React, { useState } from 'react';
+import React from 'react';
 
-function Header(){ 
-    const [text, setText] = useState('');
-
-
+function Header(props){ 
     return (
         <div className="header">
             <div className="header__nav">
@@ -14,7 +11,7 @@ function Header(){
             </div>
             <p className="header__name">Weather forecast</p>
             <p className="header__description">Simple but powerful weather forcasting service based on OpenWeatherMap API</p>
-            <FindCardResult></FindCardResult>
+            <FindCardResult arrCities={props.arrCities} addCities={props.addCities} ></FindCardResult>
         </div>
     );
 }

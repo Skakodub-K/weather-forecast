@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {Link} from 'react-router-dom'
+import React, { useState } from "react";
+
 
 async function getFindResult(str) {
   const response = await fetch(
@@ -9,21 +9,13 @@ async function getFindResult(str) {
   return data;
 }
 
-function AddCard(city) {
 
-  let arr = localStorage.getItem("pages");
-  if (arr) {
-      arr = JSON.parse(arr);
-      arr.push(city);
-      localStorage.setItem("pages", JSON.stringify(arr));
-  }
-  window.location.href="/";
-}
+function FindCardResult(props) {
 
-function FindCardResult() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-
+  const [animation, setAnimation] = useState(false);
+  
   async function handleChange(event) {
     setQuery(event.target.value);
     try{
@@ -40,15 +32,38 @@ function FindCardResult() {
   }
   }
 
+  function AddCard(city) {
+
+    let arr = props.arrCities;
+    if (arr) {
+        var IsAdd = true;
+        for(var i = 0; i < arr.length; i++){
+          if((Math.round(arr[i].lat * 100) / 100 === Math.round(city.lat * 100) / 100) && (Math.round(arr[i].lon * 100) / 100 === Math.round(city.lon * 100) / 100)){
+               IsAdd=false;
+               break;
+           }
+       }
+       if(IsAdd){
+        arr.push(city);
+      }
+      props.addCities([...arr]);
+      localStorage.setItem("pages", JSON.stringify(arr));
+    }
+  }
   const getCity = (event) => {
     event.preventDefault();
+    setAnimation(true);
+    setQuery("");
+    setResults([]);
     setTimeout(function() {
-      let anim = document.querySelector("header__search__animation")[0];
-      anim.style.display = "block";
+      setAnimation(false);
     }, 600);
-    
-    const city = event.target.parentNode.dataset.city;
-    AddCard(city);
+    let cord_city = new Object();
+    cord_city.lat = event.target.parentNode.dataset.lat;
+    cord_city.lon = event.target.parentNode.dataset.lon;
+    if(cord_city.lat!==undefined && cord_city.lon!==undefined){
+      AddCard(cord_city);
+    }
   };
 
   return (
@@ -62,10 +77,10 @@ function FindCardResult() {
       />
       <div className="header__search__div">
         {results.length > 0 ? (
-          <ul className="header__search__ul">
+          <ul className="header__search__ul" style={{display:animation?"none":"block"}} >
             {results.map((result) => (
-              <li className="header__search__ul-li" key={[result.lat, result.lon]}>
-                <Link to="/" className="header__search__ul-li__a" data-city={result.name} onClick={getCity}>
+              <div className="header__search__ul__div">
+              <li className="header__search__ul-li"  data-lat={result.lat} data-lon={result.lon} onClick={getCity}>
                   <p className="header__search__ul__name">
                     <b>{result.name + ", " + result.country}</b>
                   </p>
@@ -79,9 +94,9 @@ function FindCardResult() {
                       ", " +
                       Math.round(result.lon * 10000) / 10000}
                   </p>
-                </Link>
-                
               </li>
+                {result !== results[results.length-1] ? (<img className="header__search__ul__line" src="./image/Line.svg" alt="line"></img>):(<></>)}
+              </div>
             ))}
           </ul>
         ) : query.length > 0 ? (
@@ -93,12 +108,12 @@ function FindCardResult() {
               Try a different city name
             </p>
           </div>
-        ) :(
-         <></>
+        ) :( 
+        <></>
         )}
-         <div className="header__search__animation"> 
-              <img className="header__search__animation--img" src="./image/Spinner.svg" alt="animation"></img>
-         </div>
+        <div className="header__search__animation" style={{display:animation?"block":"none"}}> 
+          <img className="header__search__animation--img" src="./image/Spinner.svg" alt="animation"></img>
+        </div>
       </div>
       <button className="header__search__button">
         <img src="./image/Search.svg" alt="search" />

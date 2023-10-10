@@ -1,20 +1,12 @@
-import { useState, useEffect } from "react";
 import MainContent from "./MainContent";
 
-function AllCards(){
-
-    const [citys, setCitys] = useState([]);
-
-    useEffect(() => {
-      let arr = JSON.parse(localStorage.getItem("pages"));
-      setCitys(arr);
-    }, []);
+function AllCards(props){
 
     return(
         <div className="all-cards">
-        {citys.map(
+        {props.arrayCities.map(
           city =>
-           <MainContent city={city} key={city}></MainContent>
+           <MainContent arrayCities={props.arrayCities} SetCities={props.SetCities} city={city} key={city}></MainContent>
         )}
       </div>
     )
