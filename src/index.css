@@ -4,6 +4,10 @@
   border: 0px;
 }
 @font-face {
+  font-family: "PT Robot UI-bold";
+  src: url(../public/fonts/pt-root-ui_bold.ttf);
+}
+@font-face {
   font-family: "PT Robot UI";
   src: url(../public/fonts/PT-Root-UI_Regular.ttf);
 }
@@ -14,6 +18,7 @@ body {
   max-width: 2000px;
 }
 #root{
+  max-width: 1440px;
   margin-left: 15.5vw;
   margin-right: 15.4vw;
   margin-top: 24px;
@@ -61,16 +66,22 @@ body {
   top: 156px;
   left: 60vw;
   display: flex;
-  width: 24.4vw;
+  width: 352px;
   height: 48px;
 }
 .header__search__input{
-  width: 21.1vw;
+  outline:#D6D2D1;
+  width: 304px;
   height: 48px;
   padding-left: 16px;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
   background: var(--gray-300, #D6D2D1);
+  font-family: 'PT Robot UI';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px
 }
 .header__search__input::placeholder{
   align-items: center;
@@ -83,41 +94,49 @@ body {
 }
 .header__search__div{
   position: absolute;
-  top: 50px;
-  width: 24.4vw;
-  height: fit-content;
+  top: 56px;
+  width: 352px;
+  max-height: 252px;
   z-index: 1;
-  display: flex;
   border-radius: 8px;
   background: var(--white, #FFF);
   box-shadow: 0px 6px 12px 0px rgba(28, 7, 19, 0.10), 0px 0px 1px 0px rgba(28, 7, 19, 0.20);
+  line-height: 0%;
 }
 .header__search__ul__div{
+  position: relative;
+  top:-4px;
   width: 352px;
-  height: 84px;
-  display: flex;
-  flex-direction: column;
+  height: 85px;
+  box-sizing: border-box;  
 }
-.header__search__ul__div :hover p{
+.header__search__ul__div :hover {
   cursor: pointer;
   background: var(--gray-100, #FAFAF9);
+}
+.header__search__ul__div:hover p{
   color: var(--purple-100, #730641);
 }
 .header__search__ul-li{
-  margin-top: 20px;
+  position: relative;
+  top: 4px;
+  padding-top: 20px;
   padding-left: 24px;
   padding-right: 24px;
-  margin-bottom: 20px;
+  padding-bottom: 15px;
+  vertical-align: middle;
+  width: 304px;
+  height: 48px;
 }
 .header__search__ul{
   list-style-type: none;
 }
 .header__search__ul__name{
   color: var(--Gray500, #272525);
-  font-family: 'PT Robot UI';
+  font-family: 'PT Robot UI-bold';
   font-size: 16px;
   font-style: normal;
-  font-weight: 700;
+  font-weight:bolder;
   line-height: 24px;
 }
 .header__search__ul__cord{
@@ -136,8 +155,9 @@ body {
 .header__search__ul__line{
   width: 302px;
   height: 1px;
-  margin: 0px auto 0px auto;
-  flex-shrink: 0;
+  margin-left: 24px;
+  margin-right: 24px;
+  text-align: center;
   background: var(--Gray200, #E4E0DF);
 }
 .header__search__not--found{
@@ -165,17 +185,17 @@ body {
   width: 352px;
   height: 84px;
   display: none;
-  animation-name: loader;
-  animation-duration: 0.6s;
-  animation-iteration-count: infinite;
 }
 .header__search__animation--img{
   width: 24px;
   height: 24px;
+  animation-name: loader;
+  animation-duration: 0.6s;
+  animation-iteration-count: infinite;
   position: relative;
   display: block;
-  margin: auto;
-  margin-top: 30px;
+  top: 30px;
+  left: 164px;
 }
 @keyframes loader{
   from {transform: rotate(0deg);}
@@ -188,22 +208,13 @@ body {
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-.header__all-find{
-  width: 24.4vw;
-  height: 254px;
-  position: absolute;
-  top: 212px;
-  left: 60vw;
-  border-radius: 8px;
-  box-shadow: 0px 6px 12px 0px rgba(28, 7, 19, 0.10), 0px 0px 1px 0px rgba(28, 7, 19, 0.20);
-  background: var(--white, #FFF);
-}
+
 .all-cards{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 32px;
-  gap: 24px;
+  margin-top: 23px;
+  gap: 33px;
 }
 .card-city{
   width: 33.33vw;
@@ -245,7 +256,7 @@ body {
 .card-city hr{
   height: 1px;
   margin-top: 32px;
-  background: var(--gray-200, #E4E0DF);
+  background: var(--Gray200,#E4E0DF);
 }
 .card-city__weather{
   padding: 24px;
@@ -272,9 +283,9 @@ body {
   height: 48px;
   border-radius: 50%;
   background-color: var(--white, #FFF);
-  border: 1px solid var(--gray-400, #8E8B8B);
+  border: 1px solid var(--Gray200,#E4E0DF);
 }
 .card-city__delete:hover{
   cursor: pointer;
-  background: var(--Gray200, #E4E0DF);
+  background: var(--Gray100, #FAFAF9);
 }
