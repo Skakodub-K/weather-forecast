@@ -1,68 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 
 async function getFindResult(str) {
   const response = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${str}&limit=3&appid=5e992d2e5f4462ff62565f2030da7469`
+    `https://openweathermap.org/data/2.5/find?q=${str}&appid=439d4b804bc8187953eb36d2a8c26a02`
   );
-  let data = await response.json();
-  return data;
+  const data = await response.json();
+  return data.list;
 }
-
 
 function FindCardResult(props) {
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [animation, setAnimation] = useState(false);
+  const [focus,setFocus] = useState(true);
   
-  async function handleChange(event) {
-    setQuery(event.target.value);
-    try{
-    if (event.target.value.length >= 0) {
-      const Results = await getFindResult(event.target.value);
-      setResults(Results);
+  useEffect(() => {
+    getFindResult(query).then((data)=>{
+      
+    if (data.length > 0) {
+      if(data.length > 3){
+        data.splice(3, data.length - 3);
+      }
+      setResults(data);
     } else {
       setResults([]);
-    }
-  }
-  catch(error){
-    console.log(error);
-    return null;
-  }
-  }
+    }});
+  },[query]);
 
-  function AddCard(city) {
-
-    let arr = props.arrCities;
-    if (arr) {
-        var IsAdd = true;
-        for(var i = 0; i < arr.length; i++){
-          if((Math.round(arr[i].lat * 100) / 100 === Math.round(city.lat * 100) / 100) && (Math.round(arr[i].lon * 100) / 100 === Math.round(city.lon * 100) / 100)){
-               IsAdd=false;
-               break;
-           }
-       }
-       if(IsAdd){
-        arr.push(city);
-      }
-      props.addCities([...arr]);
-      localStorage.setItem("pages", JSON.stringify(arr));
-    }
+  function handleChange(event) {
+    setQuery(event.target.value);
   }
-  const getCity = (event) => {
-    event.preventDefault();
+  
+  window.addEventListener('click', function(event){
+    const target = event.target;
+    if(!target.closest('.header__search')){
+      setFocus(false);
+    }else{
+      setFocus(true);
+    }
+  })
+
+  const getCity = (result) =>()=> {
     setAnimation(true);
     setQuery("");
     setResults([]);
+
     setTimeout(function() {
       setAnimation(false);
     }, 600);
-    let cord_city = new Object();
-    cord_city.lat = event.target.parentNode.dataset.lat;
-    cord_city.lon = event.target.parentNode.dataset.lon;
-    if(cord_city.lat!==undefined && cord_city.lon!==undefined){
-      AddCard(cord_city);
+    let cityId = result.id
+    if(cityId){
+      props.addCity(cityId);
     }
   };
 
@@ -79,10 +69,10 @@ function FindCardResult(props) {
         {results.length > 0 ? (
           <ul className="header__search__ul" style={{display:animation?"none":"block"}} >
             {results.map((result) => (
-              <div className="header__search__ul__div">
-              <li className="header__search__ul-li"  data-lat={result.lat} data-lon={result.lon} onClick={getCity}>
+              <div className="header__search__ul__div" style={{display:focus?"block":"none"}}>
+               <li className="header__search__ul-li"  onClick={getCity(result)}>
                   <p className="header__search__ul__name">
-                    <b>{result.name + ", " + result.country}</b>
+                    <strong>{result.name + ", " + result.sys.country}</strong>
                   </p>
                   <img
                     className="header__search__ul__img"
@@ -90,9 +80,9 @@ function FindCardResult(props) {
                     alt="add"
                   />
                   <p className="header__search__ul__cord">
-                    {Math.round(result.lat * 1000) / 1000 +
+                    {Math.round(result.coord.lat * 1000) / 1000 +
                       ", " +
-                      Math.round(result.lon * 10000) / 10000}
+                      Math.round(result.coord.lon * 10000) / 10000}
                   </p>
               </li>
                 {result !== results[results.length-1] ? (<img className="header__search__ul__line" src="./image/Line.svg" alt="line"></img>):(<></>)}
@@ -100,7 +90,7 @@ function FindCardResult(props) {
             ))}
           </ul>
         ) : query.length > 0 ? (
-          <div className="header__search__not--found">
+          <div className="header__search__not--found" style={{display:focus?"block":"none"}}>
             <p className="header__search__not--found__basis">
               City called “{query}” was not found
             </p>

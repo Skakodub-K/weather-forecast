@@ -11,7 +11,7 @@ function Header(props){
             </div>
             <p className="header__name">Weather forecast</p>
             <p className="header__description">Simple but powerful weather forcasting service based on OpenWeatherMap API</p>
-            <FindCardResult arrCities={props.arrCities} addCities={props.addCities} ></FindCardResult>
+            <FindCardResult addCity={props.addCity} ></FindCardResult>
         </div>
     );
 }
