@@ -6,7 +6,7 @@ async function getFindResult(str) {
   const data = await response.json();
   return data.list;
 }
-function debounce(func, delay=300) {
+function debounce(func, delay=250) {
   let timeout;
   return function() {
     const context = this;
@@ -15,24 +15,27 @@ function debounce(func, delay=300) {
     timeout = setTimeout(() => func.apply(context, args), delay);
   };
 }
+
 function FindCardResult(props) {
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [animation, setAnimation] = useState(false);
-  const [focus,setFocus] = useState(true);
+  const [focus, setFocus] = useState(true);
   
+  const debounceFunction =  debounce(()=>getFindResult(query).then((data)=>{
+
+  if (data.length > 0) {
+    if(data.length > 3){
+      data.splice(3, data.length - 3);
+    }
+    setResults(data);
+  } else {
+    setResults([]);
+  }}))
+
   useEffect(() => {
-    debounce(()=>getFindResult(query).then((data)=>{
-      
-    if (data.length > 0) {
-      if(data.length > 3){
-        data.splice(3, data.length - 3);
-      }
-      setResults(data);
-    } else {
-      setResults([]);
-    }}))
+    debounceFunction();
   },[query]);
 
   function handleChange(event) {

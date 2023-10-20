@@ -5,17 +5,17 @@ import { useState, useEffect } from "react";
 function App() {
   const [cities, setCities] = useState([]);
 
-  function deleteCity(cityId){
+  function deleteCity(cityId) {
+    alert(cityId);
     var arr = JSON.parse(localStorage.getItem("pages"));
-    for( var i = 0; i < arr.length; i++){
-      if(cityId === arr[i]){
-        arr.splice(i, 1);
-        break;
-      }
+    var index = arr.indexOf(cityId);
+    if (index > -1) {
+      arr.splice(index, 1);
     }
     localStorage.setItem("pages", JSON.stringify(arr));
-    setCities([...arr]); 
+    setCities([...arr]);
   }
+
   function addCities(cityId){
     var arr = JSON.parse(localStorage.getItem("pages"));
     var isAdd = true;
@@ -42,9 +42,9 @@ function App() {
       <Header addCity={addCities}></Header>
       <div className="all-cards">
         {cities.map(
-          city =>
-           <CardCityWeather cityId={city} delCity={deleteCity}></CardCityWeather>
-        )}
+          city => 
+              <CardCityWeather cityId={city} delCity={deleteCity}></CardCityWeather>
+          )}
       </div>
     </div>
   );
