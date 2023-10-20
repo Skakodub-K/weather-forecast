@@ -2,13 +2,19 @@ import React, { useState, useEffect } from "react";
 
 
 async function getFindResult(str) {
-  const response = await fetch(
-    `https://openweathermap.org/data/2.5/find?q=${str}&appid=439d4b804bc8187953eb36d2a8c26a02`
-  );
+  const response = await fetch(`https://openweathermap.org/data/2.5/find?q=${str}&appid=439d4b804bc8187953eb36d2a8c26a02`);
   const data = await response.json();
   return data.list;
 }
-
+function debounce(func, delay=300) {
+  let timeout;
+  return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), delay);
+  };
+}
 function FindCardResult(props) {
 
   const [query, setQuery] = useState("");
@@ -17,7 +23,7 @@ function FindCardResult(props) {
   const [focus,setFocus] = useState(true);
   
   useEffect(() => {
-    getFindResult(query).then((data)=>{
+    debounce(()=>getFindResult(query).then((data)=>{
       
     if (data.length > 0) {
       if(data.length > 3){
@@ -26,7 +32,7 @@ function FindCardResult(props) {
       setResults(data);
     } else {
       setResults([]);
-    }});
+    }}))
   },[query]);
 
   function handleChange(event) {

@@ -161,7 +161,7 @@ body {
   background: var(--Gray200, #E4E0DF);
 }
 .header__search__not--found{
-  margin: 20px 50px 20px 50px;
+  margin: 20px 49.6px 20px 49.6px;
 }
 .header__search__not--found__basis{
   color: var(--Gray500, #272525);

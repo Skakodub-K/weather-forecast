@@ -6,11 +6,9 @@ function App() {
   const [cities, setCities] = useState([]);
 
   function deleteCity(cityId){
-    //alert("delete " + cityId);
     var arr = JSON.parse(localStorage.getItem("pages"));
     for( var i = 0; i < arr.length; i++){
       if(cityId === arr[i]){
-        //alert(arr[i]);
         arr.splice(i, 1);
         break;
       }
@@ -19,7 +17,6 @@ function App() {
     setCities([...arr]); 
   }
   function addCities(cityId){
-    //alert("add "+ cityId);
     var arr = JSON.parse(localStorage.getItem("pages"));
     var isAdd = true;
     for( var i = 0; i < arr.length; i++){
