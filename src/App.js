@@ -42,7 +42,7 @@ function App() {
       <div className="all-cards">
         {cities.map(
           city => 
-              <CardCityWeather cityId={city} delCity={deleteCity}></CardCityWeather>
+              <CardCityWeather cityId={city} delCity={deleteCity} key={city}></CardCityWeather>
           )}
       </div>
     </div>
