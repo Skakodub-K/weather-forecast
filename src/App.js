@@ -6,7 +6,6 @@ function App() {
   const [cities, setCities] = useState([]);
 
   function deleteCity(cityId) {
-    alert(cityId);
     var arr = JSON.parse(localStorage.getItem("pages"));
     var index = arr.indexOf(cityId);
     if (index > -1) {

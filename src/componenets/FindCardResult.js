@@ -35,11 +35,15 @@ function FindCardResult(props) {
   }}))
 
   useEffect(() => {
-    debounceFunction();
+    if(query.length >= 3){
+      debounceFunction();
+    }
   },[query]);
 
   function handleChange(event) {
-    setQuery(event.target.value);
+
+      setQuery(event.target.value);
+
   }
   
   window.addEventListener('click', function(event){
