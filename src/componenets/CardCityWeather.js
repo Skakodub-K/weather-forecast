@@ -37,7 +37,7 @@ function CardCityWeather(props) {
                     <p className="card-city__info--temp">{Math.round(weatherData.main.temp) + "°C"}<img className="card-city__info--icon" src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="icon"></img></p>
                     <p className="card-city__info--sky">{upFirst(weatherData.weather[0].description)}</p>
                 </div>
-                <hr></hr>
+                <img className="card-city__line" src="./image/LineCards.svg" alt="line"></img>
                 <div className="card-city__weather">
                     <NumberWeather path="./image/Wind.svg" txt="wind" number={weatherData.wind.speed + " m/s"}></NumberWeather>
                     <NumberWeather path="./image/Humidity.svg" txt="humidity" number={weatherData.main.humidity + "%"}></NumberWeather>
