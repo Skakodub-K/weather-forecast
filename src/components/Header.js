@@ -1,5 +1,6 @@
 import FindCardResult from "./FindCardResult";
 import React from 'react';
+import "../style/Header.css"
 
 function Header(props){ 
     return (

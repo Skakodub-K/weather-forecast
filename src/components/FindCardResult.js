@@ -1,32 +1,19 @@
-import React, { useState, useEffect } from "react";
-
-
-async function getFindResult(str) {
-  const response = await fetch(`https://openweathermap.org/data/2.5/find?q=${str}&appid=439d4b804bc8187953eb36d2a8c26a02`);
-  const data = await response.json();
-  return data.list;
-}
-function debounce(func, delay=250) {
-  let timeout;
-  return function() {
-    const context = this;
-    const args = arguments;
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(context, args), delay);
-  };
-}
+import React, { useState, useEffect, useMemo } from "react";
+import '../style/FindCardResult.css';
+import { getFindResult } from "../api";
+import { cordround, debounce } from "../helpers";
 
 function FindCardResult(props) {
 
   const [query, setQuery] = useState("");
+  const [focus, setFocus] = useState(true);
   const [results, setResults] = useState([]);
   const [animation, setAnimation] = useState(false);
-  const [focus, setFocus] = useState(true);
   
   const debounceFunction =  debounce(()=>getFindResult(query).then((data)=>{
 
   if (data.length > 0) {
-    if(data.length > 3){
+    if(data.length > 3) {
       data.splice(3, data.length - 3);
     }
     setResults(data);
@@ -40,21 +27,16 @@ function FindCardResult(props) {
     }
   },[query]);
 
-  function handleChange(event) {
-
-      setQuery(event.target.value);
-
-  }
+  const roundedCoordinates = useMemo(() => {
+    return results.map((result) => {
+      return {
+        ...result,
+        roundedLat: cordround(result.coord.lat, 1000),
+        roundedLon: cordround(result.coord.lon, 10000)
+      };
+    });
+  }, [results]);
   
-  window.addEventListener('click', function(event){
-    const target = event.target;
-    if(!target.closest('.header__search')){
-      setFocus(false);
-    }else{
-      setFocus(true);
-    }
-  })
-
   const getCity = (result) =>()=> {
     setAnimation(true);
     setQuery("");
@@ -76,15 +58,16 @@ function FindCardResult(props) {
         type="text"
         placeholder="Search"
         value={query}
-        onChange={handleChange}
+        onChange={(e)=>setQuery(e.target.value)}
+        onFocus={(e)=>setFocus(true)}
       />
       <div className="header__search__div">
         {results.length > 0 ? (
           <ul className="header__search__ul" style={{display:animation?"none":"block"}} >
-            {results.map((result) => (
-              <div className="header__search__ul__div" style={{display:focus?"block":"none"}}>
-               <li className="header__search__ul-li"  onClick={getCity(result)}>
-                  <p className="header__search__ul__name">
+             {roundedCoordinates.map((result) => (
+              <div className="header__search__ul__div" key={result.id} style={{ display: focus ? "block" : "none" }}>
+                <li className="header__search__ul-li" onClick={getCity(result)}>
+                <p className="header__search__ul__name">
                     <strong>{result.name + ", " + result.sys.country}</strong>
                   </p>
                   <img
@@ -93,12 +76,10 @@ function FindCardResult(props) {
                     alt="add"
                   />
                   <p className="header__search__ul__cord">
-                    {Math.round(result.coord.lat * 1000) / 1000 +
-                      ", " +
-                      Math.round(result.coord.lon * 10000) / 10000}
+                    {result.roundedLat + ", " + result.roundedLon}
                   </p>
-              </li>
-                {result !== results[results.length-1] ? (<img className="header__search__ul__line" src="./image/Line.svg" alt="line"></img>):(<></>)}
+                </li>
+                {result !== roundedCoordinates[roundedCoordinates.length-1] ? (<div className="header__search__ul__line"></div>):(<></>)}
               </div>
             ))}
           </ul>

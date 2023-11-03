@@ -1,0 +1,141 @@
+.header__search{
+    position: absolute;
+    top: 156px;
+    left: 60vw;
+    display: flex;
+    width: 352px;
+    height: 48px;
+  }
+  .header__search__input{
+    outline:#D6D2D1;
+    width: 304px;
+    height: 48px;
+    padding-left: 16px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background: var(--gray-300, #D6D2D1);
+    font-family: 'PT Robot UI';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px
+  }
+  .header__search__input::placeholder{
+    align-items: center;
+    color: var(--gray-400, #8E8B8B);
+    font-family: 'PT Robot UI';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .header__search__div{
+    position: absolute;
+    top: 56px;
+    width: 352px;
+    overflow: hidden;
+    max-height: 252px;
+    z-index: 1;
+    border-radius: 8px;
+    background: var(--white, #FFF);
+    box-shadow: 0px 6px 12px 0px rgba(28, 7, 19, 0.10), 0px 0px 1px 0px rgba(28, 7, 19, 0.20);
+    line-height: 0%;
+  }
+  .header__search__ul__div{
+    position: relative;
+    width: 352px;
+    height: 84px;
+    box-sizing: border-box;  
+  }
+  .header__search__ul__div :hover {
+    cursor: pointer;
+    background: var(--gray-100, #FAFAF9);
+  }
+  .header__search__ul__div:hover p{
+    color: var(--purple-100, #730641);
+  }
+  .header__search__ul-li{
+    position: relative;
+    padding: 20px 24px 15px;
+    vertical-align: middle;
+    height: 48px;
+  }
+  .header__search__ul__line{
+    margin-left: 24px;
+    margin-right: 24px;
+    background: var(--Gray200, #E4E0DF);
+    border-bottom: 1px solid var(--Gray200, #E4E0DF);
+  }
+  .header__search__ul{
+    list-style-type: none;
+  }
+  .header__search__ul__name{
+    color: var(--Gray500, #272525);
+    font-family: 'PT Robot UI-bold';
+    font-size: 16px;
+    font-style: normal;
+    font-weight:bolder;
+    line-height: 24px;
+  }
+  .header__search__ul__cord{
+    color: var(--Gray400, #8E8B8B);
+    font-family: 'PT Robot UI';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; 
+  }
+  .header__search__ul__img{
+   float: right;
+   position: relative;
+   top:-17px;
+  }
+  .header__search__not--found{
+    margin: 20px 49.6px 20px 49.6px;
+  }
+  .header__search__not--found__basis{
+    color: var(--Gray500, #272525);
+    text-align: center;
+    font-family: 'PT Robot UI';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; 
+  }
+  .header__search__not--found__descript{
+    color: var(--Gray400, #8E8B8B);
+    text-align: center;
+    font-family: 'PT Robot UI';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  .header__search__animation{
+    width: 352px;
+    height: 84px;
+    display: none;
+  }
+  .header__search__animation--img{
+    width: 24px;
+    height: 24px;
+    animation-name: loader;
+    animation-duration: 0.6s;
+    animation-iteration-count: infinite;
+    position: relative;
+    display: block;
+    top: 30px;
+    left: 164px;
+  }
+  @keyframes loader{
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+  }
+  .header__search__button{
+    width: 48px;
+    height: 48px;
+    background: var(--purple-100, #730641);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  

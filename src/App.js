@@ -1,40 +1,36 @@
-import Header from "./componenets/Header";
-import CardCityWeather from "./componenets/CardCityWeather";
+import Header from "./components/Header";
+import CardCityWeather from "./components/CardCityWeather";
 import { useState, useEffect } from "react";
 
 function App() {
   const [cities, setCities] = useState([]);
 
   function deleteCity(cityId) {
-    var arr = JSON.parse(localStorage.getItem("pages"));
+    
+    var arr = cities; 
     var index = arr.indexOf(cityId);
     if (index > -1) {
       arr.splice(index, 1);
     }
-    localStorage.setItem("pages", JSON.stringify(arr));
     setCities([...arr]);
   }
 
   function addCities(cityId){
-    var arr = JSON.parse(localStorage.getItem("pages"));
-    var isAdd = true;
-    for( var i = 0; i < arr.length; i++){
-      if(cityId === arr[i]){
-        isAdd=false;
-        break;
-      }
-    }
-    if(isAdd){
-      arr.push(cityId);
-    }
-    localStorage.setItem("pages", JSON.stringify(arr));
+    var arr = cities;
+    if(arr.indexOf(cityId) == -1) {arr.push(cityId)}
     setCities([...arr]);
   }
 
   useEffect(() => {
-    let arr = JSON.parse(localStorage.getItem("pages"));
-    setCities([...arr]);
+    if(localStorage.getItem("pages") !== null){
+      let arr = JSON.parse(localStorage.getItem("pages"));
+      setCities([...arr]);
+    }
   }, []);
+
+  useEffect(()=>{
+    localStorage.setItem("pages", JSON.stringify(cities));
+  },[cities]);
 
   return (
     <div>

@@ -1,0 +1,38 @@
+.header hr{
+    margin-top: 24px;
+    margin-bottom: 23px;
+    width: 32.2vw;
+    height: 1px;
+    background: var(--gray-300, #D6D2D1);
+  }
+  .header{
+    display: flex;
+    flex-direction: column;
+  }
+  .header__nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.1vw;
+  }
+  .header__name{
+    margin-top: 32px;
+    color: var(--gray-500, #272525);
+    font-family: 'Merriweather';
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px;
+  }
+  .header__description{
+    width: 480px;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    color: var(--gray-400, #8E8B8B);
+    font-family: 'Merriweather';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; 
+  }
+  

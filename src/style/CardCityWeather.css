@@ -1,0 +1,73 @@
+.card-city{
+    width: 480px;
+    height: 241px;
+    border-radius: 24px;
+    background: var(--white, #FFF);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    font-family:'PT Robot UI';
+  }
+  .card-city__info{
+    padding-right: 24px;
+    padding-top: 24px;
+    padding-left: 32px;
+  }
+  .card-city__info__name{
+  
+    color: var(--purple-100, #730641);
+    font-size: 14px;
+    letter-spacing: 1.12px;
+    text-transform: uppercase;
+  }
+  .card-city__info__temp{
+    margin-top: 20px;
+    color: var(--gray-500, #272525);
+    font-size: 48px;
+    line-height: 48px; 
+  }
+  .card-city__info__icon{
+    width: 48px;
+    height: 48px;
+    margin-left: 16px;
+  }
+  .card-city__info__sky{
+    color: var(--gray-400, #8E8B8B);
+    font-size: 14px;
+  }
+  .card-city__line{
+    position: relative;
+    bottom: -17px;
+  }
+  .card-city__weather{
+    padding: 24px 24px 24px 32px;
+    display: flex;
+    flex-direction: row;
+    grid-gap: 32px;
+    color: var(--gray-500, #272525);
+    font-size: 16px;
+    line-height: 24px;
+    position: relative;
+    top:10px;
+  }
+  .card-city__weather__data{
+    height: 24px;
+    display: flex;
+    flex-direction: row;
+    grid-gap: 4px;
+  }
+  .card-city__delete{
+    position: relative;
+    float: right;
+    margin: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--white, #FFF);
+    border: 1px solid var(--Gray200,#E4E0DF);
+  }
+  .card-city__delete:hover{
+    cursor: pointer;
+    background: var(--Gray100, #FAFAF9);
+  }
+  
