@@ -79,7 +79,7 @@ function FindCardResult(props) {
                     {result.roundedLat + ", " + result.roundedLon}
                   </p>
                 </li>
-                {result !== roundedCoordinates[roundedCoordinates.length-1] ? (<div className="header__search__ul__line"></div>):(<></>)}
+                <div className="header__search__ul__line"></div>
               </div>
             ))}
           </ul>

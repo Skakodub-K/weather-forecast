@@ -54,6 +54,9 @@
   .header__search__ul__div:hover p{
     color: var(--purple-100, #730641);
   }
+  .header__search__ul__div:last-child .header__search__ul__line{
+    border-bottom: 0px;
+  }
   .header__search__ul-li{
     position: relative;
     padding: 20px 24px 15px;
